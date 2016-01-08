@@ -1,0 +1,36 @@
+{
+    "name": "dashboard",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "build": "browserify -t [ babelify --presets [ react ] ] ./public/components/packages.js | uglifyjs > ./public/dist/packages-bundle.js",
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "twitter": "1.2.5",
+        "node-env-file": "0.1.8",
+
+        "when": "3.7.7",
+        "express": "4.13.1",
+        "lodash": "3.10.1",
+        "react": "0.14.3",
+        "react-dom": "0.14.3",
+        "jquery": "2.1.4",
+        "d3": "3.5.8",
+        "socket.io": "1.3.5"
+    },
+    "devDependencies": {
+        "browserify": "12.0.1",
+        "babelify": "7.2.0",
+        "uglifyjs": "2.4.10",
+        "mocha": "2.3.3",
+        "sinon": "1.17.2",
+        "should": "7.1.1",
+        "supertest": "1.1.0",
+        "eslint": "1.10.x",
+        "eslint-config-airbnb": "~0.1.x",
+        "eslint-plugin-react": "~3.7.x",
+        "babel-preset-react": "6.3.13",
+        "babel-eslint": "~4.1.x"
+    }
+}

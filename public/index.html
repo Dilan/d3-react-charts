@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Charts :: Dashboard</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- development -->
+    <script src="/js/babel.browser-5.8.23.min.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+	<script src="/socket.io/socket.io.js"></script>
+
+    <script src="/dist/packages-bundle.js"></script>
+    <!-- <script src="/dist/dashboard-bundle.js" type='text/babel'></script> -->
+
+    <script src="/components/Tweet.js" type='text/babel'></script>
+    <script src="/components/numberChart.js" type='text/babel'></script>
+    <script src="/components/dashboard.js" type='text/babel'></script>
+
+    <script type='text/babel'>
+        var Dashboard = window.Dashboard;
+        window.ReactDOM.render(<Dashboard />, document.getElementById('app'));
+    </script>
+
+    <script>
+        /*
+        var Dashboard = window.Dashboard;
+        window.ReactDOM.render(
+            window.React.createElement(Dashboard, {}),
+            document.getElementById('app')
+        );
+        */
+    </script>
+
+</body>
+</html>
