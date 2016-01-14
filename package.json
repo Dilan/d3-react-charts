@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "build": "browserify -t [ babelify --presets [ react ] ] ./public/components/packages.js | uglifyjs > ./public/dist/packages-bundle.js",
+        "build-dev": "browserify -t [ babelify --presets [ react ] ] ./public/components/packages.js > ./public/dist/packages-bundle.js",
         "start": "node app.js"
     },
     "dependencies": {

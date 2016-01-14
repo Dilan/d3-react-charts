@@ -17,6 +17,7 @@ module.exports = function (socket) {
         access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     });
 
+    /*
     client.stream('statuses/filter', { track: 'javascript' }, function(stream) {
         stream.on('data', function(tweet) {
             // console.log(tweet.text);
@@ -30,6 +31,23 @@ module.exports = function (socket) {
             throw error;
         });
     });
+    */
+
+    // emulate USD/EUR change each 2 seconds:
+    setInterval(function() {
+        var randomInterval = function(min, max) {
+            return parseFloat(Math.random() * (max - min + 1) + min).toFixed(2);
+        };
+        socket.emit(
+            'vote:new',
+            [
+                { x: 'a', y: randomInterval(2, 20)},
+                { x: 'b', y: randomInterval(1, 18)},
+                { x: 'c', y: randomInterval(5, 17)},
+                { x: 'd', y: 30},
+            ]
+        );
+    }, 1000)
 
     // emulate USD/EUR change each 2 seconds:
     setInterval(function() {

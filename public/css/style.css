@@ -9,3 +9,20 @@ body {
     font-family: "Verdana";
     border: 2px solid #b5b5b5;
 }
+
+.bar {
+    fill: steelblue;
+}
+
+.selection ul {
+    margin: 0;
+    padding: 0;
+}
+
+.selection ul li {
+    display: inline;
+    text-decoration: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
