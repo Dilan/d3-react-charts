@@ -14,15 +14,44 @@ body {
     fill: steelblue;
 }
 
-.selection ul {
-    margin: 0;
-    padding: 0;
+.minus-fade-out-enter {
+    background-color: #fcdede;
+    opacity: 0.01;
 }
 
-.selection ul li {
-    display: inline;
-    text-decoration: none;
-    margin-left: 10px;
-    cursor: pointer;
+.minus-fade-out-enter.minus-fade-out-enter-active {
+    opacity: 1;
+    transition: background-color .8s linear;
+    transition: opacity 500ms ease-in;
 }
 
+.minus-fade-out-leave {
+    display: none;
+    opacity: 1;
+}
+
+.minus-fade-out-leave.minus-fade-out-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+
+.plus-fade-out-enter {
+    background-color: #c2f2c2;
+    opacity: 0.01;
+}
+
+.plus-fade-out-enter.plus-fade-out-enter-active {
+    opacity: 1;
+    transition: background-color .8s linear;
+    transition: opacity 500ms ease-in;
+}
+
+.plus-fade-out-leave {
+    display: none;
+    opacity: 1;
+}
+
+.plus-fade-out-leave.plus-fade-out-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}

@@ -11,9 +11,9 @@ var Dashboard = React.createClass({
 
         return (
            <div>
-               <NumberChart label="USD" number={this.state.usd} />
-               <NumberChart label="EUR" number={this.state.eur} />
-
+               <NumberChart label="USD: " number={this.state.usd} />
+               <NumberChart label="EUR: " number={this.state.eur} />
+               <Tweet text={this.state.tweet} />
                <BarChart data={this.state.votes} />
            </div>
         );
@@ -25,12 +25,12 @@ var Dashboard = React.createClass({
                 { x: 'a', y: 20 },
                 { x: 'b', y: 14 },
                 { x: 'c', y: 5  },
-                { x: 'd', y: 30 },
+                { x: 'd', y: 30 }
 
             ],
             tweet: 'loading JS tweets...',
-            usd: '73.8',
-            eur: '80.3'
+            usd: '73.80',
+            eur: '80.30'
         };
     },
 
@@ -46,7 +46,6 @@ var Dashboard = React.createClass({
     },
 
     onVote: function(data) {
-        console.log(data)
         this.setState({ votes: data });
     },
 

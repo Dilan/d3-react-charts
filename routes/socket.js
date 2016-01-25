@@ -17,7 +17,7 @@ module.exports = function (socket) {
         access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     });
 
-    /*
+/*
     client.stream('statuses/filter', { track: 'javascript' }, function(stream) {
         stream.on('data', function(tweet) {
             // console.log(tweet.text);
@@ -31,7 +31,7 @@ module.exports = function (socket) {
             throw error;
         });
     });
-    */
+*/
 
     // emulate USD/EUR change each 2 seconds:
     setInterval(function() {
@@ -47,7 +47,7 @@ module.exports = function (socket) {
                 { x: 'd', y: 30},
             ]
         );
-    }, 1000)
+    }, 1000);
 
     // emulate USD/EUR change each 2 seconds:
     setInterval(function() {
@@ -62,7 +62,7 @@ module.exports = function (socket) {
             'eur:change',
             randomInterval(80, 89)
         );
-    }, 2000)
+    }, 5000)
 
     socket.on('disconnect', function () { });
 };
