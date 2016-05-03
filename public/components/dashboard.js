@@ -1,20 +1,18 @@
 var socket = io.connect();
 
-var isNode = (typeof module !== 'undefined' && module.exports);
-var React = (isNode ? require('react') : window.React);
-var NumberChart = (isNode ? require('./numberChart') : window.NumberChart);
-var Tweet = (isNode ? require('./Tweet') : window.Tweet);
-var BarChart = (isNode ? require('./chart/bar-chart') : window.BarChart);
+var React = require('react');
+var NumberChart = require('./components/NumberChart');
+var Tweet = require('./components/Tweet');
+var BarChart = require('./components/chart/BarChart');
 
 var Dashboard = React.createClass({
     render: function() {
-
         return (
            <div>
-               <NumberChart label="USD: " number={this.state.usd} />
                <NumberChart label="EUR: " number={this.state.eur} />
-               <Tweet text={this.state.tweet} />
+               <NumberChart label="USD: " number={this.state.usd} />
                <BarChart data={this.state.votes} />
+               <Tweet text={this.state.tweet} />
            </div>
         );
     },
@@ -22,11 +20,13 @@ var Dashboard = React.createClass({
     getInitialState: function () {
         return {
             votes: [
-                { x: 'a', y: 20 },
-                { x: 'b', y: 14 },
-                { x: 'c', y: 5  },
-                { x: 'd', y: 30 }
-
+                [
+                    { "x": 1, "y":  91 },
+                    { "x": 1, "y":  30 }
+                ], [
+                    { "x": 2, "y":  34 },
+                    { "x": 2, "y":  30 }
+                ]
             ],
             tweet: 'loading JS tweets...',
             usd: '73.80',
@@ -60,7 +60,7 @@ var Dashboard = React.createClass({
     }
 });
 
-if (isNode) {
+if ((typeof module !== 'undefined' && module.exports)) { // node.js
     module.exports = Dashboard;
 } else {
     window.Dashboard = Dashboard;

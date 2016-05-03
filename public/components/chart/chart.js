@@ -1,11 +1,10 @@
-var isNode = (typeof module !== 'undefined' && module.exports);
-var React = (isNode ? require('react') : window.React);
-var d3 = (isNode ? require('d3') : window.d3);
+var React = require('react');
 
 var Chart = React.createClass({
     render: function() {
         return (
             <svg
+                className="box"
                 width={this.props.width}
                 height={this.props.height}>
                 {this.props.children}
@@ -14,13 +13,11 @@ var Chart = React.createClass({
     },
 
     getInitialState: function () {
-        return {
-
-        };
+        return {};
     }
 });
 
-if (isNode) {
+if ((typeof module !== 'undefined' && module.exports)) { // node.js
     module.exports = Chart;
 } else {
     window.Chart = Chart;

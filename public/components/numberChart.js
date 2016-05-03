@@ -5,18 +5,14 @@ var ReactCSSTransitionGroup = (isNode ? require('react-addons-css-transition-gro
 
 var NumberChart = React.createClass({
     render: function() {
-        var className = (
-            (this.state.prevNumber < this.state.number) ? 'plus-fade-out' : 'minus-fade-out'
-        );
-
         return (
             <div className="box">
                 <h3>
                     <span>{this.state.label}</span>
                     <ReactCSSTransitionGroup
-                        transitionName={className}
-                        transitionEnterTimeout={2500}
-                        transitionLeaveTimeout={1000}>
+                        transitionName={((this.state.prevNumber < this.state.number) ? 'plus' : 'minus') + '-fade-out'}
+                        transitionEnterTimeout={1000}
+                        transitionLeaveTimeout={100}>
                         <span key={this.state.number}>{this.state.number}</span>
                     </ReactCSSTransitionGroup>
                 </h3>

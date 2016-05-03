@@ -1,68 +1,48 @@
-module.exports = function (socket) {
+var config = require('../config/');
 
-    // Twitter
-    var env = require('node-env-file');
+var Pipeline = require('../components/pipeline');
+var pipelineClient = new Pipeline();
+var currencyEmulator = require('../components/emulator/currency');
+var voteEmulator = require('../components/emulator/vote');
+var twitter = require('../components/twitter');
 
-    var envPath = __dirname + '/../config/production.env';
-    if (require('fs').existsSync(__dirname + '/../config/development.env')) {
-        envPath = __dirname + '/../config/development.env';
-    }
+module.exports = function(socket) {
 
-    env(envPath); // load ENV variables
-    var Twitter = require('twitter');
-    var client = new Twitter({
-        consumer_key: process.env.TWITTER_CONSUMER_KEY,
-        consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-        access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-        access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-    });
+    pipelineClient.addDataProvider(
+        currencyEmulator(
+            { usd: [75, 82], eur: [89, 94], time: [1500, 2500] },
+            function(stream) {
+                stream.on('data', function(data) {
+                    if (data['type'] === 'currency') {
+                        socket.emit(
+                            data['currency'] + ':change',
+                            data['value']
+                        );
+                    }
+                });
+            }
+        )
+    );
 
-/*
-    client.stream('statuses/filter', { track: 'javascript' }, function(stream) {
-        stream.on('data', function(tweet) {
-            // console.log(tweet.text);
-            socket.emit(
-                'tweet:new',
-                tweet.text
-            );
-        });
 
-        stream.on('error', function(error) {
-            throw error;
-        });
-    });
-*/
+    pipelineClient.addDataProvider(
+        voteEmulator({ time: [1500, 2500] }, function(stream) {
+            stream.on('data', function(data) {
+                if (data['type'] === 'vote') {
+                    socket.emit('vote:new', data['value']);
+                }
+            });
+        }));
 
-    // emulate USD/EUR change each 2 seconds:
-    setInterval(function() {
-        var randomInterval = function(min, max) {
-            return parseFloat(Math.random() * (max - min + 1) + min).toFixed(2);
-        };
-        socket.emit(
-            'vote:new',
-            [
-                { x: 'a', y: randomInterval(2, 20)},
-                { x: 'b', y: randomInterval(1, 18)},
-                { x: 'c', y: randomInterval(5, 17)},
-                { x: 'd', y: 30},
-            ]
-        );
-    }, 1000);
+    pipelineClient.addDataProvider(
+        twitter({ track: 'dublin' }, function(stream) {
+            stream.on('data', function(tweet) {
+                socket.emit('tweet:new', tweet.text);
+            });
+        })
+    );
 
-    // emulate USD/EUR change each 2 seconds:
-    setInterval(function() {
-        var randomInterval = function(min, max) {
-            return parseFloat(Math.random() * (max - min + 1) + min).toFixed(2);
-        };
-        socket.emit(
-            'usd:change',
-            randomInterval(70, 80)
-        );
-        socket.emit(
-            'eur:change',
-            randomInterval(80, 89)
-        );
-    }, 5000)
+    pipelineClient.stream();
 
-    socket.on('disconnect', function () { });
+    socket.on('disconnect', function () {});
 };

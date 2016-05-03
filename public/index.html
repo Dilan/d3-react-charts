@@ -9,22 +9,41 @@
 
     <!-- development -->
     <script src="/js/babel.browser-5.8.23.min.js"></script>
+
+    <script>
+        var require = function(module) {
+            switch (module) {
+                case 'd3':
+                    return window.d3;
+                case 'react':
+                    return window.React;
+                case './components/NumberChart':
+                    return window.NumberChart;
+                case './components/Tweet':
+                    return window.Tweet;
+                case './components/chart/BarChart':
+                    return window.BarChart;
+                case './Bar':
+                    return window.Bar;
+                case './Chart':
+                    return window.Chart;
+            }
+        };
+    </script>
 </head>
 <body>
 	<div id="app"></div>
 	<script src="/socket.io/socket.io.js"></script>
-
     <script src="/dist/packages-bundle.js"></script>
-    <!-- <script src="/dist/dashboard-bundle.js" type='text/babel'></script> -->
 
     <script src="/components/Tweet.js" type='text/babel'></script>
-    <script src="/components/numberChart.js" type='text/babel'></script>
+    <script src="/components/NumberChart.js" type='text/babel'></script>
 
-    <script src="/components/chart/chart.js" type='text/babel'></script>
-    <script src="/components/chart/bar.js" type='text/babel'></script>
-    <script src="/components/chart/bar-chart.js" type='text/babel'></script>
+    <script src="/components/chart/Chart.js" type='text/babel'></script>
+    <script src="/components/chart/Bar.js" type='text/babel'></script>
+    <script src="/components/chart/BarChart.js" type='text/babel'></script>
 
-    <script src="/components/dashboard.js" type='text/babel'></script>
+    <script src="/components/Dashboard.js" type='text/babel'></script>
 
     <script type='text/babel'>
         var Dashboard = window.Dashboard;
@@ -40,6 +59,5 @@
         );
         */
     </script>
-
 </body>
 </html>

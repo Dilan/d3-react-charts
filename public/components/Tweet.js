@@ -1,5 +1,4 @@
-var isNode = (typeof module !== 'undefined' && module.exports);
-var React = (isNode ? require('react') : window.React);
+var React = require('react');
 
 var Tweet = React.createClass({
     render: function() {
@@ -9,19 +8,17 @@ var Tweet = React.createClass({
             </div>
         );
     },
-
     getInitialState: function () {
         return {
             text: this.props.text || ''
         };
     },
-
     componentWillReceiveProps: function(nextProps) {
         this.setState(nextProps);
     }
 });
 
-if (isNode) {
+if ((typeof module !== 'undefined' && module.exports)) { // node.js
     module.exports = Tweet;
 } else {
     window.Tweet = Tweet;

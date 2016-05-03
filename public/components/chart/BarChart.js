@@ -1,10 +1,8 @@
-var isNode = (typeof module !== 'undefined' && module.exports);
-var React = (isNode ? require('react') : window.React);
-var d3 = (isNode ? require('d3') : window.d3);
+var React = require('react');
 
 // components:
-var Bar = (isNode ? require('./bar') : window).Bar;
-var Chart = (isNode ? require('./chart') : window).Chart;
+var Bar = require('./Bar');
+var Chart = require('./Chart');
 
 var BarChart = React.createClass({
     render: function() {
@@ -33,16 +31,19 @@ var BarChart = React.createClass({
     getInitialState: function() {
         return {
             data: [
-                { x: 'a', y: 20 },
-                { x: 'b', y: 14},
-                { x: 'c', y: 12},
-                { x: 'd', y: 30}
+                [
+                    { "x": 1, "y":  91 },
+                    { "x": 1, "y":  30 }
+                ], [
+                    { "x": 2, "y":  34 },
+                    { "x": 2, "y":  30 }
+                ]
             ]
         }
     }
 });
 
-if (isNode) {
+if ((typeof module !== 'undefined' && module.exports)) { // node.js
     module.exports = BarChart;
 } else {
     window.BarChart = BarChart;

@@ -1,6 +1,5 @@
-var isNode = (typeof module !== 'undefined' && module.exports);
-var React = (isNode ? require('react') : window.React);
-var d3 = (isNode ? require('d3') : window.d3);
+var React = require('react');
+var d3 = require('d3');
 
 var SetIntervalMixin = {
     componentWillMount: function() {
@@ -25,11 +24,22 @@ var Rect = React.createClass({
 
         var coefficient = easyeasy(Math.min(1, this.state.milliseconds/1000)); // 1 second
         var height = this.state.height + (this.props.height - this.state.height) * coefficient;
+        height = height < 0 ? 0 :height;
         var y = this.props.height - height + this.props.y;
 
         if (coefficient === 1 || (this.state.height === this.props.height)) {
             clearInterval(this.intervalId);
         }
+
+        //console.log('this.props.height : ' + this.props.height)
+
+        if (height < 0) {
+            console.log('coefficient: ' + coefficient);
+            console.log('height: ' + height);
+            console.log('this.state.height: ' + this.state.height)
+            console.log('this.props.height: ' + this.props.height)
+        }
+
         return (
             <rect
                 className="bar"
@@ -93,46 +103,78 @@ var Bar = React.createClass({
         }
     },
 
+    getInitialState: function() {
+        return {
+            max: 0
+        };
+    },
+
     shouldComponentUpdate: function(nextProps) {
         return this.props.data !== nextProps.data;
     },
 
+    componentWillReceiveProps: function(nextProps) {
+
+        var maxY = nextProps.data.reduce(function(result, item) {
+            var my = Math.max.apply(null, item.map(function(i) {
+                return i.y;
+            }));
+            return my > result ? my : result;
+        }, 0);
+
+        this.setState({ max: maxY });
+    },
+
     render: function() {
         var props = this.props;
-        var data = props.data.map(function(d) {
-            return d.y;
-        });
+
+        var maxY = props.data.reduce(function(result, item) {
+            var my = Math.max.apply(null, item.map(function(i) {
+                return i.y;
+            }));
+            return my > result ? my : result;
+        }, 0);
+
+        maxY = Math.max(this.state.max, maxY);
 
         var yScale = d3.scale.linear()
-            .domain([0, d3.max(data)])
+            .domain([0, maxY])
             .range([0, this.props.height]);
 
         var xScale = d3.scale.ordinal()
-            .domain(d3.range(this.props.data.length))
-            .rangeRoundBands([0, this.props.width], 0.05);
+            .domain([1, 2])
+            .rangeRoundBands([0, this.props.width], 0.25);
 
-        var bars = data.map(function(point, i) {
-            var height = yScale(point),
-                y = (props.height - height) || 0,
-                width = xScale.rangeBand(),
-                x = xScale(i);
+        var bars = props.data.map(function(points, index) {
 
-            return (
-                <Rect height={height}
-                    width={width}
-                    x={x}
-                    y={y || 0}
-                    key={i} />
-            )
+            return points.map(function(point, i) {
+
+                var height = yScale(point.y),
+                    y = (props.height - height) || 0,
+                    width = xScale.rangeBand() / 2,
+                    x = xScale(point.x) + i*width;
+
+                var key = index + '-' + i;
+
+                return (
+                    <Rect height={height}
+                          width={width}
+                          x={x}
+                          y={y || 0}
+                          key={key} />
+                );
+            });
         });
 
         return (
-            <g>{bars}</g>
+            <g>
+                {bars}
+            </g>
         );
     }
 });
 
-if (isNode) {
+if ((typeof module !== 'undefined' && module.exports)) { // node.js
     module.exports = Bar;
 } else {
     window.Bar = Bar;
