@@ -1,3 +1,4 @@
+//
 var React = require('react');
 
 var Chart = React.createClass({

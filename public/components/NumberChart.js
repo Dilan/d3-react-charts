@@ -1,3 +1,4 @@
+//
 var isNode = (typeof module !== 'undefined' && module.exports);
 var React = (isNode ? require('react') : window.React);
 var ReactTransitionGroup = (isNode ? require('react-addons-transition-group') : window.ReactTransitionGroup);
