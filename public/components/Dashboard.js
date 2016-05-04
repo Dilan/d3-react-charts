@@ -12,7 +12,7 @@ var Dashboard = React.createClass({
                <NumberChart label="EUR: " number={this.state.eur} />
                <NumberChart label="USD: " number={this.state.usd} />
                <BarChart data={this.state.votes} />
-               <Tweet text={this.state.tweet} />
+
            </div>
         );
     },

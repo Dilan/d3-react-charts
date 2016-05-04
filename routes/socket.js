@@ -33,7 +33,7 @@ module.exports = function(socket) {
                 }
             });
         }));
-
+    /*
     pipelineClient.addDataProvider(
         twitter({ track: 'dublin' }, function(stream) {
             stream.on('data', function(tweet) {
@@ -41,6 +41,7 @@ module.exports = function(socket) {
             });
         })
     );
+    */
 
     pipelineClient.stream();
 
