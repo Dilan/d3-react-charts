@@ -12,8 +12,8 @@ var NumberChart = React.createClass({
                     <span>{this.state.label}</span>
                     <ReactCSSTransitionGroup
                         transitionName={((this.state.prevNumber < this.state.number) ? 'plus' : 'minus') + '-fade-out'}
-                        transitionEnterTimeout={1000}
-                        transitionLeaveTimeout={100}>
+                        transitionEnterTimeout={800}
+                        transitionLeaveTimeout={300}>
                         <span key={this.state.number}>{this.state.number}</span>
                     </ReactCSSTransitionGroup>
                 </h3>

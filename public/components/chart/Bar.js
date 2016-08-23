@@ -26,7 +26,7 @@ var Rect = React.createClass({
         var coefficient = easyeasy(Math.min(1, this.state.milliseconds/1000)); // 1 second
         var height = this.state.height + (this.props.height - this.state.height) * coefficient;
         height = height < 0 ? 0 :height;
-        var y = this.props.height - height + this.props.y;
+        var y = this.props.height - height + this.props.y + 40;
 
         if (coefficient === 1 || (this.state.height === this.props.height)) {
             clearInterval(this.intervalId);

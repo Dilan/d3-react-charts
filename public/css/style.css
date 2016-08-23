@@ -2,6 +2,12 @@ body {
     font-family: "Verdana";
 }
 
+#app {
+    padding: 10px;
+    width: 50%;
+    margin: 0 auto;
+}
+
 .box {
     width: 600px;
     margin-bottom: 1px;

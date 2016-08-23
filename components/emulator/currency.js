@@ -9,10 +9,10 @@ var randItem = function(list) {
 module.exports = function(options, callback) {
     return function(stream) {
         (function emit() {
-            var currency = randItem(['usd', 'eur']);
+            var currency = randItem(['usd']); // , 'eur'
 
-            var timeFrom = options['time'][0] || 1000;
-            var timeTo = options['time'][1] || 2000;
+            var timeFrom = options['time'][0] || 100;
+            var timeTo = options['time'][1] || 100;
             var min = options[currency][0];
             var max = options[currency][1];
             var value = rand(min, max, 2);
