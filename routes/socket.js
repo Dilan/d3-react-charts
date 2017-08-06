@@ -10,27 +10,29 @@ module.exports = function (socket) {
 
     env(envPath); // load ENV variables
     var Twitter = require('twitter');
-    var client = new Twitter({
-        consumer_key: process.env.TWITTER_CONSUMER_KEY,
-        consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-        access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-        access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-    });
 
-    client.stream('statuses/filter', { track: 'javascript' }, function(stream) {
-        stream.on('data', function(tweet) {
-            // console.log(tweet.text);
-            socket.emit(
-                'tweet:new',
-                tweet.text
-            );
+    if (process.env.TWITTER_CONSUMER_KEY) {
+        var client = new Twitter({
+            consumer_key: process.env.TWITTER_CONSUMER_KEY,
+            consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+            access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+            access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
         });
 
-        stream.on('error', function(error) {
-            throw error;
-        });
-    });
+        client.stream('statuses/filter', { track: 'javascript' }, function(stream) {
+            stream.on('data', function(tweet) {
+                // console.log(tweet.text);
+                socket.emit(
+                    'tweet:new',
+                    tweet.text
+                );
+            });
 
+            stream.on('error', function(error) {
+                throw error;
+            });
+        });
+    }
     // emulate USD/EUR change each 2 seconds:
     setInterval(function() {
         var randomInterval = function(min, max) {
