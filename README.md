@@ -1,17 +1,15 @@
-# ReactJS Socket.io Chat Application
+# D3 + ReactJS + Socket.io + Express
 
-First, create file config/development.env or change config/production.env if you want to see tweets.
-
-Second, grab the dependencies:
+Install dependencies
 
     npm install
 
-Build the applicaiton
+Build the javascript bundle
 	
-	npm run build
+    npm run build
 
-Then run the app like so:
+Run
 
     npm start
 
-And navigate to `localhost:3100`
+And navigate to `http://127.0.0.1:3100`
