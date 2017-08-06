@@ -1,38 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Charts :: Dashboard</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- development -->
-    <script src="/js/babel.browser-5.8.23.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Reactive Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-	<div id="app"></div>
-	<script src="/socket.io/socket.io.js"></script>
-
-    <script src="/dist/packages-bundle.js"></script>
-    <!-- <script src="/dist/dashboard-bundle.js" type='text/babel'></script> -->
-
-    <script src="/components/Tweet.js" type='text/babel'></script>
-    <script src="/components/numberChart.js" type='text/babel'></script>
-    <script src="/components/dashboard.js" type='text/babel'></script>
-
-    <script type='text/babel'>
-        var Dashboard = window.Dashboard;
-        window.ReactDOM.render(<Dashboard />, document.getElementById('app'));
-    </script>
-
-    <script>
-        /*
-        var Dashboard = window.Dashboard;
-        window.ReactDOM.render(
-            window.React.createElement(Dashboard, {}),
-            document.getElementById('app')
-        );
-        */
-    </script>
-
-</body>
+  <div id="app"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/dist/bundle.app.js"></script>
+  </body>
 </html>
