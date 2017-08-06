@@ -1,36 +1,46 @@
 {
-    "name": "dashboard",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "build": "browserify -t [ babelify --presets [ react ] ] ./public/components/packages.js | uglifyjs > ./public/dist/packages-bundle.js",
-        "start": "node app.js"
-    },
-    "dependencies": {
-        "twitter": "1.2.5",
-        "node-env-file": "0.1.8",
-
-        "when": "3.7.7",
-        "express": "4.13.1",
-        "lodash": "3.10.1",
-        "react": "0.14.3",
-        "react-dom": "0.14.3",
-        "jquery": "2.1.4",
-        "d3": "3.5.8",
-        "socket.io": "1.3.5"
-    },
-    "devDependencies": {
-        "browserify": "12.0.1",
-        "babelify": "7.2.0",
-        "uglifyjs": "2.4.10",
-        "mocha": "2.3.3",
-        "sinon": "1.17.2",
-        "should": "7.1.1",
-        "supertest": "1.1.0",
-        "eslint": "1.10.x",
-        "eslint-config-airbnb": "~0.1.x",
-        "eslint-plugin-react": "~3.7.x",
-        "babel-preset-react": "6.3.13",
-        "babel-eslint": "~4.1.x"
+  "name": "d3-react-charts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "webpack-dev-server -d",
+    "start": "node server.js",
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
+  },
+  "author": "",
+  "license": "ISC",
+  
+  "devDependencies": {
+      "webpack": "2.4.1",
+      "babel-core": "6.24.1",
+      "babel-preset-es2015": "6.24.1",
+      "babel-preset-react": "6.24.1",
+      "babel-loader": "7.0.0",
+      
+    
+    
+    "css-loader": "^0.23.1",
+    
+    "datamaps": "^0.4.2",
+    "node-sass": "^3.4.2",
+    "object-assign": "^4.0.1",
+    "react-select": "1.0.0-rc.3",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "topojson": "^1.6.20",
+    
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+      "express": "4.13.1",
+      "socket.io": "1.3.5",
+      
+      "d3": "4.8.0",
+      "react": "15.4.2",
+      "react-dom": "15.4.2",
+      "react-redux": "5.0.4",
+      "redux": "3.0.6"
     }
 }
